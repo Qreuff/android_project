@@ -2,11 +2,11 @@ import kotlin.math.*
 import kotlin.random.Random
 
 data class Human(
-    var fullName: String,      // ФИО
-    var age: Int,              // Возраст
-    var speed: Double,         // Текущая скорость
-    var x: Double = 0.0,       // текущая координата x
-    var y: Double = 0.0        // текущая координата y
+    var fullName: String,     
+    var age: Int,             
+    var speed: Double,       
+    var x: Double = 0.0,      
+    var y: Double = 0.0        
 ) {
 
     fun setPosition(nx: Double, ny: Double) { x = nx; y = ny }
