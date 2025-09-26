@@ -32,13 +32,13 @@ open class Human(
         while (t < simulationTime) {
             t += dt
             move(dt)
-            println("$fullName: pos=(${String.format("%.3f", x)}, ${String.format("%.3f", y)}) at t=${t.toInt()}s")
+            println("$fullName: pos=(${String.format("%.3f", x)}, ${String.format("%.3f", y)}) at t=${t.toInt()}s\n")
             Thread.sleep((dt * 1000).toLong())
         }
     }
 
     override fun toString(): String {
-        return "Human(name='$fullName', age=$age, speed=${"%.2f".format(speed)}, x=${"%.3f".format(x)}, y=${"%.3f".format(y)})"
+        return "Human(name='$fullName', age=$age, speed=${"%.2f".format(speed)}, x=${"%.3f".format(x)}, y=${"%.3f".format(y)})\n"
     }
 }
 
@@ -63,7 +63,8 @@ class Driver(
         while (t < simulationTime) {
             t += dt
             move(dt)
-            println("$fullName (Driver): pos=(${String.format("%.3f", x)}, ${String.format("%.3f", y)}) at t=${t.toInt()}s")
+            println("$fullName (Driver): pos=(${String.format("%.3f", x)}, ${String.format("%.3f", y)}) at t=${t.toInt()}s\n")
+            println("-----------------------------------------------------------------")
             Thread.sleep((dt * 1000).toLong())
         }
     }
@@ -96,6 +97,6 @@ fun main() {
     println("Запуск симуляции на $simulationTime секунд...\n")
     threads.forEach { it.start() }
     threads.forEach { it.join() }
-    println("\nИтоговые состояния:")
+    println("\n--Итоговые состояния:")
     (humans + driver).forEach { println(it) }
 }
