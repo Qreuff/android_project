@@ -7,7 +7,7 @@ open class Human(
     var speed: Double,
     var x: Double = 0.0,
     var y: Double = 0.0
-) : Runnable {
+) : Runnable { // позволяет запускать в отдельном потоке
 
     var simulationTime: Int = 10   // время симуляции по умолчанию (секунд)
     var dt: Double = 1.0           // шаг времени (секунда)
@@ -18,7 +18,7 @@ open class Human(
 
     open fun move(dt: Double = 1.0): Pair<Double, Double> {
         if (dt <= 0.0) return x to y
-        val theta = Random.nextDouble(0.0, 2 * Math.PI)
+        val theta = Random.nextDouble(0.0, 2 * Math.PI)// угол движения
         val distance = speed * dt
         val dx = distance * cos(theta)
         val dy = distance * sin(theta)
@@ -49,7 +49,7 @@ class Driver(
     x: Double = 0.0,
     y: Double = 0.0,
     val licenseNumber: String
-) : Human(fullName, age, speed, x, y) {
+) : Human(fullName, age, speed, x, y) {// следует из Human
 
     override fun move(dt: Double): Pair<Double, Double> {
         if (dt <= 0.0) return x to y
@@ -95,8 +95,8 @@ fun main() {
     val threads = humans.map { Thread(it) } + Thread(driver)
 
     println("Запуск симуляции на $simulationTime секунд...\n")
-    threads.forEach { it.start() }
-    threads.forEach { it.join() }
+    threads.forEach { it.start() }// добавляем в поток
+    threads.forEach { it.join() } // ждем пока все закончат
     println("\n--Итоговые состояния:")
-    (humans + driver).forEach { println(it) }
+    (humans + driver).forEach { println(it) }// печать итоговых состояний
 }
