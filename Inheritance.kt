@@ -100,3 +100,4 @@ fun main() {
     println("\n--Итоговые состояния:")
     (humans + driver).forEach { println(it) }// печать итоговых состояний
 }
+
