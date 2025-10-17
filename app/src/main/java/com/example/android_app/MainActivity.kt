@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.content.pm.ActivityInfo
 
 class MainActivity : AppCompatActivity() {
     private lateinit var resultText: TextView
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private var firstOperand = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -50,43 +52,66 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun appendNumber(number: String) {
-        if (currentInput == "0") {
-            currentInput = number
-        } else {
-            currentInput += number
+        when {
+            currentInput == "0" || currentInput == "Error" -> {
+                currentInput = number
+            }
+            currentInput == "-0" -> {
+                currentInput = "-$number"
+            }
+            currentInput.endsWith(",0") -> {
+                currentInput = currentInput.dropLast(1) + number
+            }
+            currentInput.last().toString() in setOf("+", "-", "*", "/") -> {
+                val operator = currentInput.last().toString()
+                currentInput = number
+                currentOperator = operator
+            }
+            else -> {
+                currentInput += number
+            }
         }
         updateDisplay()
     }
     private fun setOperator(operator: String) {
-        if (currentOperator.isEmpty()) {
-            firstOperand = currentInput.replace(",", ".").toDouble()
-            currentInput = "0"
-        } else {
-            calculate()
-        }
+        if (currentInput == "Error" || currentInput.isEmpty() || currentInput == "-") {
+            return}
+        val lastChar = currentInput.last().toString()
+        if (lastChar == "+" || lastChar == "-" || lastChar == "*" || lastChar == "/") {
+            currentInput = currentInput.dropLast(1) + operator
+            currentOperator = operator
+            updateDisplay()
+            return}
+        if (currentOperator.isNotEmpty()) {
+                calculate()}
+        firstOperand = currentInput.replace(",", ".").toDouble()
+        currentInput += operator
         currentOperator = operator
-    }
+        updateDisplay()}
     private fun calculate() {
         if (currentOperator.isNotEmpty()) {
-            val secondOperand = currentInput.replace(",", ".").toDouble()
-            val result = when (currentOperator) {
-                "+" -> firstOperand + secondOperand
-                "-" -> firstOperand - secondOperand
-                "*" -> firstOperand * secondOperand
-                "/" -> if (secondOperand != 0.0) firstOperand / secondOperand else Double.NaN
-                else -> 0.0
-            }
-
-            currentInput = if (result.isNaN()) "Error" else {
-                if (result % 1 == 0.0) {
-                    result.toInt().toString()
-                } else {
-                    result.toString().replace(".", ",")
+            val operatorIndex = currentInput.indexOf(currentOperator)
+            val secondOperandStr = currentInput.substring(operatorIndex + 1)
+            if (secondOperandStr.isNotEmpty()) {
+                val secondOperand = secondOperandStr.replace(",", ".").toDouble()
+                val result = when (currentOperator) {
+                    "+" -> firstOperand + secondOperand
+                    "-" -> firstOperand - secondOperand
+                    "*" -> firstOperand * secondOperand
+                    "/" -> if (secondOperand != 0.0) firstOperand / secondOperand else Double.NaN
+                    else -> 0.0
                 }
+                currentInput = if (result.isNaN()) "Error" else {
+                    if (result % 1 == 0.0) {
+                        result.toInt().toString()
+                    } else {
+                        result.toString().replace(".", ",")
+                    }
+                }
+                currentOperator = ""
+                firstOperand = 0.0
+                updateDisplay()
             }
-            currentOperator = ""
-            firstOperand = 0.0
-            updateDisplay()
         }
     }
     private fun clear() {
@@ -97,7 +122,13 @@ class MainActivity : AppCompatActivity() {
     }
     private fun addDecimal() {
         if (!currentInput.contains(",")) {
-            currentInput += ","
+            if (currentInput == "0" || currentInput == "Error") {
+                currentInput = "0,"
+            } else if (currentInput == "-0") {
+                currentInput = "-0,"
+            } else {
+                currentInput += ","
+            }
             updateDisplay()
         }
     }
