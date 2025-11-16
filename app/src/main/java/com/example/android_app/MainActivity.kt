@@ -8,20 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.pm.ActivityInfo
-<<<<<<< HEAD
-=======
 import android.graphics.Color
 import kotlin.random.Random
->>>>>>> origin/1
 
 class MainActivity : AppCompatActivity() {
     private lateinit var resultText: TextView
     private var currentInput = "0"
-<<<<<<< HEAD
     private var currentOperator = ""
     private var firstOperand = 0.0
-=======
->>>>>>> origin/1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -34,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         }
         setupViews()
     }
-<<<<<<< HEAD
     private fun setupViews(){
         resultText = findViewById(R.id.textView2)
         findViewById<Button>(R.id.button26).setOnClickListener { appendNumber("0") }
@@ -58,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button33).setOnClickListener { toggleSign() }
 
         updateDisplay()
-=======
         private fun setupViews(){
             resultText = findViewById(R.id.textView2)
             findViewById<Button>(R.id.button26).setOnClickListener { appendNumber("0") }
@@ -101,7 +93,6 @@ class MainActivity : AppCompatActivity() {
             )
             findViewById<Button>(buttonId).setBackgroundColor(color)
         }
->>>>>>> origin/1
     }
 
     private fun appendNumber(number: String) {
@@ -109,7 +100,6 @@ class MainActivity : AppCompatActivity() {
             currentInput == "0" || currentInput == "Error" -> {
                 currentInput = number
             }
-<<<<<<< HEAD
             currentInput == "-0" -> {
                 currentInput = "-$number"
             }
@@ -121,7 +111,6 @@ class MainActivity : AppCompatActivity() {
                 currentInput = number
                 currentOperator = operator
             }
-=======
 
             currentInput == "-0" -> {
                 currentInput = "-$number"
@@ -131,7 +120,6 @@ class MainActivity : AppCompatActivity() {
                 currentInput = currentInput.dropLast(2) + number
             }
 
->>>>>>> origin/1
             else -> {
                 currentInput += number
             }
@@ -140,7 +128,6 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setOperator(operator: String) {
         if (currentInput == "Error" || currentInput.isEmpty() || currentInput == "-") {
-<<<<<<< HEAD
             return}
         val lastChar = currentInput.last().toString()
         if (lastChar == "+" || lastChar == "-" || lastChar == "*" || lastChar == "/") {
@@ -178,7 +165,6 @@ class MainActivity : AppCompatActivity() {
                 firstOperand = 0.0
                 updateDisplay()
             }
-=======
             return
         }
         val lastChar = currentInput.last().toString()
@@ -258,12 +244,10 @@ class MainActivity : AppCompatActivity() {
                 formatted = formatted.dropLast(1)
             }
             formatted.replace(".", ",")
->>>>>>> origin/1
         }
     }
     private fun clear() {
         currentInput = "0"
-<<<<<<< HEAD
         currentOperator = ""
         firstOperand = 0.0
         updateDisplay()
@@ -277,7 +261,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 currentInput += ","
             }
-=======
         updateDisplay()
     }
     private fun addDecimal() {
@@ -289,12 +272,10 @@ class MainActivity : AppCompatActivity() {
         val lastNumber = currentInput.split('+', '-', '*', '/').last()
         if (!lastNumber.contains(",")) {
             currentInput += ","
->>>>>>> origin/1
             updateDisplay()
         }
     }
     private fun toggleSign() {
-<<<<<<< HEAD
         if (currentInput != "0" && currentInput != "Error") {
             if (currentInput.startsWith("-")) {
                 currentInput = currentInput.substring(1)
@@ -322,7 +303,6 @@ class MainActivity : AppCompatActivity() {
         resultText.text = currentInput
     }
 }
-=======
         if (currentInput == "0" || currentInput == "Error") {
             return
         }
@@ -354,4 +334,3 @@ class MainActivity : AppCompatActivity() {
         resultText.text = currentInput
     }
 }
->>>>>>> origin/1

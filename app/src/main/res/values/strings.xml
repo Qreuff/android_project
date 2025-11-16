@@ -1,8 +1,5 @@
 <resources>
-<<<<<<< HEAD
     <string name="app_name">calculator</string>
 </resources>
-=======
     <string name="app_name">android_app</string>
 </resources>
->>>>>>> origin/1
