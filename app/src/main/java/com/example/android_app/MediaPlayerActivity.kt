@@ -271,7 +271,6 @@ class MediaPlayerActivity : AppCompatActivity() {
             updateListView()
         }
     }
-
     private fun searchMP3(directory: File){
         directory.listFiles()?.forEach { file ->
             if (file.isFile && file.name.endsWith(".mp3", true)){
