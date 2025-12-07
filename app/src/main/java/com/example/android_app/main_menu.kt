@@ -2,6 +2,7 @@ package com.example.android_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.CarrierConfigManager
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
@@ -27,6 +28,11 @@ class main_menu : AppCompatActivity() {
         val GoToCalculator: Button = findViewById(R.id.bGoToCalculator)
         GoToCalculator.setOnClickListener {
             val randomIntent = Intent(this, MainActivity::class.java)
+            startActivity(randomIntent)
+        }
+        val GoToLocation: Button = findViewById(R.id.bGoToLocation)
+        GoToLocation.setOnClickListener {
+            val randomIntent = Intent(this, GpsActivity::class.java)
             startActivity(randomIntent)
         }
         val GoToMedia_player: Button = findViewById(R.id.bGoToMedia_player)

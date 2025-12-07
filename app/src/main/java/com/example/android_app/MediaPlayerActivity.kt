@@ -256,19 +256,9 @@ class MediaPlayerActivity : AppCompatActivity() {
 
         try {
             val musicDir = File(Environment.getExternalStorageDirectory(), "Music")
-            Log.d(logTag, "Поиск треков в директории: ${musicDir.absolutePath}")
 
             if (musicDir.exists() && musicDir.isDirectory) {
-                val files = musicDir.listFiles()
-                Log.d(logTag, "Найдено файлов в директории: ${files?.size ?: 0}")
-
-                files?.forEach { file ->
-                    if (file.isFile && file.name.endsWith(".mp3", true)) {
-                        val uri = Uri.fromFile(file)
-                        musicList.add(file.name to uri)
-                        Log.d(logTag, "Найден трек: ${file.name}")
-                    }
-                }
+                searchMP3(musicDir)
             } else {
                 Log.d(logTag, "Директория Music не найдена или недоступна")
             }
@@ -282,6 +272,18 @@ class MediaPlayerActivity : AppCompatActivity() {
         }
     }
 
+    private fun searchMP3(directory: File){
+        directory.listFiles()?.forEach { file ->
+            if (file.isFile && file.name.endsWith(".mp3", true)){
+                val uri = Uri.fromFile(file)
+                val name = file.name.substringBeforeLast('.')
+                musicList.add(name to uri)
+                Log.d(logTag, "Найден трек: $name")
+            } else if (file.isDirectory){
+                searchMP3(file)
+            }
+        }
+    }
     private fun updateListView() {
         val adapter = listView.adapter as ArrayAdapter<String>
         adapter.clear()
