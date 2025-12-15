@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android_app">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -47,6 +47,10 @@
 
         <activity
             android:name=".MediaPlayerActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SocketsActivity"
             android:exported="false" />
 
         <activity

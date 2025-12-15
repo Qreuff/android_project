@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.android_app.MediaPlayerActivity
+import com.example.android_app.SocketsActivity
+import com.example.android_app.MainActivity
+import com.example.android_app.R
+
 
 class main_menu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +37,11 @@ class main_menu : AppCompatActivity() {
         val GoToLocation: Button = findViewById(R.id.bGoToLocation)
         GoToLocation.setOnClickListener {
             val randomIntent = Intent(this, GpsActivity::class.java)
+            startActivity(randomIntent)
+        }
+        val GoToSocket: Button = findViewById(R.id.bGoToSocket)
+        GoToSocket.setOnClickListener {
+            val randomIntent = Intent(this, SocketsActivity::class.java)
             startActivity(randomIntent)
         }
         val GoToMedia_player: Button = findViewById(R.id.bGoToMedia_player)
