@@ -1,7 +1,6 @@
 package com.example.android_app
 
 import android.Manifest
-import com.example.android_app.R
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -23,7 +22,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
 class GpsActivity : LocationListener, AppCompatActivity() {
 
     private val LOG_TAG: String = "GPS_ACTIVITY"
@@ -39,18 +37,28 @@ class GpsActivity : LocationListener, AppCompatActivity() {
     private lateinit var tvAlt: TextView
     private lateinit var tvTime: TextView
     private lateinit var btnGetLocation: Button
+    private lateinit var btnSendToServer: Button
+    private var currentLocation: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gps)
+
         locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
         tvLat = findViewById(R.id.tvLatitude)
         tvLon = findViewById(R.id.tvLongitude)
         tvAlt = findViewById(R.id.tvAltitude)
         tvTime = findViewById(R.id.tvTime)
+
         btnGetLocation = findViewById(R.id.btnGetLocation)
         btnGetLocation.setOnClickListener {
             updateCurrentLocation()
+        }
+
+        btnSendToServer = findViewById(R.id.btnSendToServer)
+        btnSendToServer.setOnClickListener {
+            sendLocationToServer()
         }
     }
 
@@ -145,6 +153,7 @@ class GpsActivity : LocationListener, AppCompatActivity() {
     }
 
     override fun onLocationChanged(location: Location) {
+        currentLocation = location
         Log.d(LOG_TAG, "Location received: Lat=${location.latitude}")
 
         val sdf = SimpleDateFormat("HH:mm:ss dd.MM.yyyy", Locale.getDefault())
@@ -172,13 +181,27 @@ class GpsActivity : LocationListener, AppCompatActivity() {
             }
 
             val jsonString = jsonObject.toString() + "\n"
-
             val file = File(filesDir, LOG_FILE_NAME)
-
             file.appendText(jsonString)
 
         } catch (e: IOException) {
             Log.e(LOG_TAG, "ошибка записи файла", e)
+        }
+    }
+
+    private fun sendLocationToServer() {
+        currentLocation?.let { location ->
+            val intent = Intent(this, SocketsActivity::class.java)
+            intent.putExtra("latitude", location.latitude)
+            intent.putExtra("longitude", location.longitude)
+            intent.putExtra("altitude", location.altitude)
+            intent.putExtra("time", SimpleDateFormat("HH:mm:ss dd.MM.yyyy", Locale.getDefault()).format(Date(location.time)))
+            intent.putExtra("timestamp", location.time)
+
+            startActivity(intent)
+
+        } ?: run {
+            Toast.makeText(this, "Сначала получите координаты GPS", Toast.LENGTH_SHORT).show()
         }
     }
 }
