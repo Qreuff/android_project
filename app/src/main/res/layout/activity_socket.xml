@@ -24,7 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Блок GPS данных -->
         <LinearLayout
             android:id="@+id/gpsDataLayout"
             android:layout_width="0dp"
@@ -74,7 +73,6 @@
                 android:padding="4dp"/>
         </LinearLayout>
 
-        <!-- Блок сетевых параметров -->
         <LinearLayout
             android:id="@+id/networkDataLayout"
             android:layout_width="0dp"
