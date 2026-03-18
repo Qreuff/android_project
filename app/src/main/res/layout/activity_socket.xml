@@ -1,97 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#373636">
 
-    <TextView
-        android:id="@+id/tvTitle"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="\nОтправка GPS данных на сервер"
-        android:textColor="#E8E8E8"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/gpsDataLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        android:background="#4A4A4A"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/tvLatitude"
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Latitude: N/A"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:padding="4dp"/>
+            android:text="Автоматическая отправка GPS"
+            android:textColor="#E8E8E8"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Блок GPS данных -->
+        <LinearLayout
+            android:id="@+id/gpsDataLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#4A4A4A"
+            android:padding="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <TextView
+                android:id="@+id/tvLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Latitude: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Longitude: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvAltitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Altitude: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+        </LinearLayout>
+
+        <!-- Блок сетевых параметров -->
+        <LinearLayout
+            android:id="@+id/networkDataLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#4A4A4A"
+            android:padding="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gpsDataLayout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сетевые параметры:"
+                android:textColor="#FFA500"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvRSRP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RSRP: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvRSRQ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RSRQ: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvRSSI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RSSI: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvFrequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Frequency: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvNetworkType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Network: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvIPAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="IP Address: ожидание..."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:padding="4dp"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvLongitude"
-            android:layout_width="match_parent"
+            android:id="@+id/tvOfflineCount"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Longitude: N/A"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:padding="4dp"/>
+            android:layout_marginTop="16dp"
+            android:text="Оффлайн: 0"
+            android:textColor="#FFA500"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/networkDataLayout" />
 
         <TextView
-            android:id="@+id/tvAltitude"
-            android:layout_width="match_parent"
+            android:id="@+id/tvSockets"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Altitude: N/A"
+            android:layout_marginTop="8dp"
+            android:text="Автоматическая отправка каждые 3 сек"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:padding="4dp"/>
+            android:textSize="14sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOfflineCount" />
 
-        <TextView
-            android:id="@+id/tvTime"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnCheckPermissions"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Time: N/A"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#2196F3"
+            android:text="Проверить разрешения"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:padding="4dp"/>
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSockets" />
 
-    <TextView
-        android:id="@+id/tvSockets"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Ожидание сервера.."
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gpsDataLayout" />
+        <Button
+            android:id="@+id/btnRetryOffline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#4CAF50"
+            android:text="Отправить оффлайн"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnCheckPermissions" />
 
-    <Button
-        android:id="@+id/btnSend"
-        android:layout_width="217dp"
-        android:layout_height="118dp"
-        android:layout_margin="16dp"
-        android:backgroundTint="#E27857"
-        android:text="Отправить"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSockets"
-        app:layout_constraintVertical_bias="0.8" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

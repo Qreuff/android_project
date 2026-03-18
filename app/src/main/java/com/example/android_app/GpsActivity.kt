@@ -26,6 +26,7 @@ class GpsActivity : LocationListener, AppCompatActivity() {
 
     private val LOG_TAG: String = "GPS_ACTIVITY"
     private val LOG_FILE_NAME = "location_log.json"
+    private val PREFS_NAME = "location_prefs"
 
     companion object {
         private const val PERMISSION_REQUEST_ACCESS_LOCATION = 100
@@ -191,13 +192,17 @@ class GpsActivity : LocationListener, AppCompatActivity() {
 
     private fun sendLocationToServer() {
         currentLocation?.let { location ->
-            val intent = Intent(this, SocketsActivity::class.java)
-            intent.putExtra("latitude", location.latitude)
-            intent.putExtra("longitude", location.longitude)
-            intent.putExtra("altitude", location.altitude)
-            intent.putExtra("time", SimpleDateFormat("HH:mm:ss dd.MM.yyyy", Locale.getDefault()).format(Date(location.time)))
-            intent.putExtra("timestamp", location.time)
+            val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+            prefs.edit().apply {
+                putFloat("latitude", location.latitude.toFloat())
+                putFloat("longitude", location.longitude.toFloat())
+                putFloat("altitude", location.altitude.toFloat())
+                putLong("timestamp", location.time)
+                putString("time_string", SimpleDateFormat("HH:mm:ss dd.MM.yyyy", Locale.getDefault()).format(Date(location.time)))
+                apply()
+            }
 
+            val intent = Intent(this, SocketsActivity::class.java)
             startActivity(intent)
 
         } ?: run {
