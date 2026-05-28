@@ -206,7 +206,7 @@ class GpsActivity : LocationListener, AppCompatActivity() {
             startActivity(intent)
 
         } ?: run {
-            Toast.makeText(this, "Сначала получите координаты GPS", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "cначала нужно получить координаты GPS", Toast.LENGTH_SHORT).show()
         }
     }
 }

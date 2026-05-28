@@ -79,7 +79,6 @@ class SocketsActivity : AppCompatActivity(), LocationListener {
     private var currentTimestamp: Long = 0
     private var currentTimeStr = ""
 
-    // Сетевые параметры
     private var currentRSRP = -140
     private var currentRSRQ = -20
     private var currentRSSI = -100
